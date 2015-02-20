@@ -1,0 +1,18 @@
+* {
+	margin:0px;
+	padding:0px;
+}
+body {
+	background-image: url("../images/layout/bg.png");
+	background-size: cover;
+	background-position: center top;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+.container {
+	width:960px;
+	margin:0px auto;
+	background-color:gray;
+}
+
