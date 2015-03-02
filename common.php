@@ -8,7 +8,7 @@
 
 	// set base vars
 	$base_dir = preg_replace('/index.php/', '', $_SERVER['SCRIPT_NAME']);
-	$class = (empty($_GET['class'])) ? 'default' : $_GET['class'];
+	$class = (empty($_GET['class'])) ? 'desktop' : $_GET['class'];
 	$method = (empty($_GET['method'])) ? 'view' : $_GET['method'];
 	$template = new template();
 	//$router = new Router($class, $method);

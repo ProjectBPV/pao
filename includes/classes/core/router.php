@@ -19,7 +19,7 @@
 		private function AutoLoad($class)
 		{
 			global $template;
-			$path = './includes/classes/'. $class. '.php';
+			$path = "./modules/". $class. '.php';
 			if(file_exists($path)) {
 				require($path);
 				return true;
