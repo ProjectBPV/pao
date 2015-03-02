@@ -26,7 +26,7 @@
 			'required' => true,
 			)				
 		);
-		$_POST = array('doei');
+		$_POST = array('naam' => 'Raoul', 'password' => '');
 	$form->check($_POST,$array);
 	$template->prepare_data(array(
 		'DIR' => $base_dir

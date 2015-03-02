@@ -11,18 +11,43 @@ class form extends functions {
     }
 
     public function check($source, $items = array()) 
-    {
-    	$this->printvar($items);
-    	
+    {    	
     	foreach ($items as $item => $rules) 
         {
-        	$this->printvar($rules, true);
+        	// Debug
+			/*echo $source[$item];
+			$this->printvar($rules, true);*/
 			foreach ($rules as $rule => $rule_value) 
 			{
-				echo $rule .' ' . $rule_value.'<br>';
+				switch($rule)
+				{
+					case 'min':
+						if(strlen($source[$item]) < $rule_value){
+							$this->error[$item][$rule] = 'false';
+						}
+						break;
+					case 'max':
+						if(strlen($source[$item]) > $rule_value){
+							$this->error[$item][$rule] = 'false';
+						}
+						break;
+					case 'required';
+						if(!empty($source[$item])){
+							$this->error[$item][$rule] = 'false';
+						}
+						break;
+					case 'unique':
+						// requires database
+						break;
+				}
+				/*if($source[$item])
+				echo $rule .' ' . $rule_value.'<br>';*/
 			}
+			
 		}
-    	//$this->printvar($source);
+		// error display 
+		//$this->printvar($this->error, true);
+    	
 		
 		// oude code niet gebruiken
         /*
@@ -86,10 +111,6 @@ class form extends functions {
 	        return $this;
 	    }
 		 */
-    }
-
-    private function addError($error) {
-        $this->_errors[] = $error;
     }
 
     public function errors() {

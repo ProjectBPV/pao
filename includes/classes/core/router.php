@@ -12,7 +12,7 @@
 					'CONTENT' => $obj->$method()
 					));
 			} else {
-				
+				$this->template->throw404();
 			}
 		}
 		
@@ -24,7 +24,7 @@
 				require($path);
 				return true;
 			} else {
-				$this->template->throw404();
+				return false;
 			}
 		}
 	}
