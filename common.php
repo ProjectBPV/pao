@@ -11,7 +11,7 @@
 	$class = (empty($_GET['class'])) ? 'desktop' : $_GET['class'];
 	$method = (empty($_GET['method'])) ? 'view' : $_GET['method'];
 	$template = new template();
-	//$router = new Router($class, $method);
+	$router = new Router($class, $method);
 	$form = new form();
 	$array = array(
 		'naam' => array(

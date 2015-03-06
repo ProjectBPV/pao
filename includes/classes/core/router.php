@@ -6,7 +6,7 @@
 			parent::__construct();
 
 			if($this->AutoLoad($class)){
-				$obj = new $obj();
+				$obj = new $class();
 			
 				$this->template->prepare_data(array(
 					'CONTENT' => $obj->$method()
