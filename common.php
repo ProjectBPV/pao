@@ -1,6 +1,6 @@
 <?php
 	// include core files
-    require(getcwd(). '/includes/classes/core/Default.functions.php');
+    require(getcwd(). '/includes/classes/core/helper.php');
     require(getcwd(). '/includes/classes/core/template.php');
 	require(getcwd(). '/includes/classes/core/database.php');
 	require(getcwd(). '/includes/classes/core/router.php');
@@ -8,6 +8,7 @@
 
 	// set base vars
 	$base_dir = preg_replace('/index.php/', '', $_SERVER['SCRIPT_NAME']);
+	$db = new database();
 	$class = (empty($_GET['class'])) ? 'desktop' : $_GET['class'];
 	$method = (empty($_GET['method'])) ? 'view' : $_GET['method'];
 	$template = new template();

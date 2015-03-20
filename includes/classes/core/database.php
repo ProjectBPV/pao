@@ -7,6 +7,7 @@
 		{
 			$this->db = new PDO("mysql:host=$host;dbname=$database","$user","$password");
 			$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$this->globalVarProtector();
 		}
 		
 		public function fetchall($sql)
@@ -35,6 +36,12 @@
 		{
 			$result = $db->prepare($sql);
 			return $result->execute();
+		}
+		public function globalVarProtector()
+		{
+			global $_GET,$_POST;
+			$_GET = addslashes($_GET);
+			$_POST = addslashes($_POST);
 		}
 	}
 ?>

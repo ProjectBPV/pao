@@ -1,6 +1,6 @@
 <?php
 
-class form extends functions {
+class form extends helper {
 
     private $_passed = false,
             $_errors = array();

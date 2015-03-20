@@ -8,19 +8,11 @@
 			$this->db = $db;
 		}
 	
-		function printvar($var,$br = false)
+		function printvar($var)
 		{
-			if($br)
-			{
 				echo '<br><pre>';
 				print_r($var);
-				echo '</pre><br>';
-			} else {
-				echo '<pre>';
-				print_r($var);
-				echo '</pre>';	
-			}
-			
+				echo '</pre><br>';			
 		}
 		
 		

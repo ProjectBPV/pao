@@ -1,5 +1,5 @@
 <?php
-	class Router extends functions
+	class Router extends helper
 	{
 		public function __construct($class, $method)
 		{
@@ -18,7 +18,6 @@
 		
 		private function AutoLoad($class)
 		{
-			global $template;
 			$path = "./modules/". $class. '.php';
 			if(file_exists($path)) {
 				require($path);
