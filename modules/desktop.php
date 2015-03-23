@@ -1,10 +1,9 @@
 <?php
-	class desktop
+	class desktop extends baseController
 	{
-		public function __construct()
+		public function __construct($route)
 		{
-			global $template;
-			$this->template = $template;
+			parent::__construct($route);
 		}
 		
 		public function view()

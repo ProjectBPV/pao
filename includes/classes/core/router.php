@@ -1,16 +1,13 @@
 <?php
-	class Router extends helper
+	class router extends baseController
 	{
-		public function __construct($class, $method)
+		public function __construct($route)
 		{
-			parent::__construct();
+			parent::__construct($route);
+			$class = (empty($_GET['class'])) ? 'desktop' : $_GET['class'];
 
 			if($this->AutoLoad($class)){
-				$obj = new $class();
-			
-				$this->template->prepare_data(array(
-					'CONTENT' => $obj->$method()
-					));
+				$obj = new $class($route);
 			} else {
 				$this->template->throw404();
 			}

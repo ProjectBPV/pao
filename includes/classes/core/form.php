@@ -1,13 +1,12 @@
 <?php
 
-class form extends helper {
+class form {
 
     private $_passed = false,
             $_errors = array();
 
     public function __construct() 
     {
-		parent::__construct();
     }
 
     public function check($source, $items = array()) 
