@@ -2,17 +2,17 @@
 	class database
 	{
 		private $db;
+		private $result;
 		
-	    public function connect_pdo($host,$database,$user,$password)
+	    public function __construct()
 		{
-			$this->db = new PDO("mysql:host=$host;dbname=$database","$user","$password");
+			
+			$this->db = new PDO("mysql:host=localhost;dbname=pao","root","");
 			$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$this->globalVarProtector();
 		}
 		
 		public function fetchall($sql)
 		{
-	
 				$results = $this->db->prepare($sql);
 				$results->execute();
 				$result = $results->fetchAll(PDO::FETCH_ASSOC);
@@ -21,10 +21,10 @@
 		
 		public function fetch($sql)
 		{
-				$results = $db->prepare($sql);
+				$results = $this->db->prepare($sql);
 				$results->execute();
 				$result = $results->fetch(PDO::FETCH_ASSOC);
-				if($result) {
+				if($results->rowCount() == 1) {
 					$results = '';
 					return $result;
 				} else {
@@ -32,16 +32,27 @@
 				}
 		}
 		
-		public function insert_update($db,$sql)
+		public function execute($sql)
 		{
-			$result = $db->prepare($sql);
+			$result = $this->db->prepare($sql);
 			return $result->execute();
 		}
-		public function globalVarProtector()
+		public function sqlPrepare($sql)
 		{
-			global $_GET,$_POST;
-			$_GET = addslashes($_GET);
-			$_POST = addslashes($_POST);
+			$this->result = $this->db->prepare($sql);
+		}
+		public function bindParameter($param, $value, $type)
+		{
+			$this->result->bindValue($param, $value, $type);
+		}
+		public function executeNonQuery()
+		{
+			$this->result->execute();
+		}
+		public function executeQuery($func)
+		{
+			$this->result->execute();
+			return $this->result->$func(PDO::FETCH_ASSOC);
 		}
 	}
 ?>
