@@ -122,15 +122,14 @@ class template
 					preg_match_all($patt2, $file, $matches);
 					$check = false;
 					$pat_start = "/<!-- START $row -->/";
-					$pat_end = "/<!-- END $row -->/";
-					
+					$pat_end = "/<!-- END $row -->/";		
 					foreach($matches[0] as $key)
-					{
+					{					
 						if(preg_match($pat_start,$key)) {
-							$file = preg_replace("/$key/",'',$file);
+							$file = preg_replace("~$key~",'',$file);
 							$check = true;
 						} elseif(preg_match($pat_end,$key)) {
-							$file = preg_replace("/$key/",$replace_row,$file);
+							$file = preg_replace("~$key~",$replace_row,$file);
 							$check = false;
 						} elseif($check) {
 							if(!empty($key)) {
@@ -144,27 +143,52 @@ class template
 							}
 						}
 					}
-				}		
-				if(!empty($this->rows)) {
-					foreach($this->rows as $row => $rows)
-					{
-						$end = '';
-						if(!empty($this->exe_block[$row])) {
-							foreach($this->exe_block[$row] as $key => $val)
-							{
-								$currow = $rows;
-								foreach($val as $exe => $cur)
+					if(!empty($this->rows)) {
+						foreach($this->rows as $row => $rows)
+						{
+							$end = '';
+							if(!empty($this->exe_block[$row])) {
+								foreach($this->exe_block[$row] as $key => $val)
 								{
-									$preg = "(\{$row.$exe\})";
-									$currow = preg_replace($preg, $cur, $currow);
+									$currow = $rows;
+									foreach($val as $exe => $cur)
+									{
+										$preg = "(\{$row.$exe\})";
+										$currow = preg_replace($preg, $cur, $currow);
+									}
+									$end .= $currow;	
 								}
-								$end .= $currow;	
+								$set = '/{'.$row.'}/';
+								$this->exe_block[$row] = array();
+								$file = preg_replace($set,$end,$file);
 							}
-							$set = '/{'.$row.'}/';
-							
-							$file = preg_replace($set,$end,$file);
 						}
+						$this->rows = array();
 					}
+				}		
+			}
+		}	
+		return $this->clearEmpty($file);
+	}
+	private function clearEmpty($file)
+	{
+		$check = false;
+		$patt2 = "/.*/";
+		$pat_start = "/<!-- START ([A-Z]+) -->/";
+		$pat_end = "/<!-- END ([A-Z]+) -->/";
+		preg_match_all($patt2, $file, $matches);
+		foreach($matches[0] as $key)
+		{
+			if(preg_match($pat_start,$key)) {
+				$file = preg_replace("/$key/",'',$file);
+				$check = true;
+			} elseif(preg_match($pat_end,$key)) {
+				$file = preg_replace("/$key/",'',$file);
+				$check = false;
+			} elseif($check) {
+				if(!empty($key)) {
+					$preg = '('. $key.')';
+					$file = preg_replace($preg,'',$file);
 				}
 			}
 		}
@@ -181,10 +205,19 @@ class template
 		}
 	}
 	
-	public function throw404()
+	public function throw404($error = '')
 	{
+		switch($error) 
+		{
+			case 'moved':
+				$content = "The url you have requested doesn't exist. Try using the sitemap";
+				break;
+			default:
+				$content = 'Error 404: the current page does not exist or the url has been changed.';
+				break;
+		}
 		$this->prepare_data(array(
-			'CONTENT' => 'Error 404: the current page does not exist or the url has been changed.'
+			'CONTENT' => $content
 			));
 		$this->parse_body('body');
 		exit;
