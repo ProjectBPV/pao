@@ -40,5 +40,5 @@
 			<td><input type='submit' value='Submit' /></td>
 		</tr>
 	</table>
-	<h5>* : Leeg laten zorg ervoor dat dit veld niet aangepast word.</h5>
+	<h5>* : Leeg laten zorgd ervoor dat dit veld niet aangepast word.</h5>
 </form>

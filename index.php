@@ -2,5 +2,5 @@
 	error_reporting(E_ALL);
 	require(getcwd(). '/common.php');
 		
-	$template->parse_body('desktop');
+	$template->parse_body('body');
 ?>

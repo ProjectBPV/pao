@@ -48,6 +48,7 @@
 					'NAAM' => substr($userKey['voornaam'], 0, 1).'. '.$userKey['tussenvoegsel'].' '.$userKey['achternaam'],
 					'GROUP' => $this->group[$userKey['groep']] ,
 					'ID' => $userKey['userId'],
+					'CONFIRM' => 'confirmDelete("{USERS.ID}";'
 					));
 			}
 			
@@ -88,7 +89,7 @@
 						$this->db->bindParameter(':voornaam', ucfirst($this->post['voornaam']), PDO::PARAM_STR);
 						$this->db->bindParameter(':tussenvoegsel', $this->post['tussenvoegsel'], PDO::PARAM_STR);
 						$this->db->bindParameter(':achternaam', ucfirst($this->post['achternaam']), PDO::PARAM_STR);
-						$this->db->bindParameter(':wachtwoord', $this->post['pw'], PDO::PARAM_STR);
+						$this->db->bindParameter(':wachtwoord', sha1($this->post['pw']), PDO::PARAM_STR);
 						$this->db->bindParameter(':email', $this->post['email'], PDO::PARAM_STR);
 						$this->db->bindParameter(':groep', $this->post['groep'], PDO::PARAM_STR);
 						$this->db->executeNonQuery();
@@ -144,7 +145,6 @@
 
 					if($key != "pw" && $key != "repw") {
 						if(empty($add)) {
-							
 							$add = " SET `$key` = '$val'";
 						} else {
 							if($key == 'groep') {
@@ -158,7 +158,7 @@
 				
 				if(!empty($this->post['pw'])) {
 					if($this->post['pw'] == $this->post['repw']) {
-						$add .= ", `wachtwoord` = '". $this->post['pw']."'";
+						$add .= ", `wachtwoord` = '". sha1($this->post['pw'])."'";
 					}
 				}
 								

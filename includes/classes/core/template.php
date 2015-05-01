@@ -103,9 +103,9 @@ class template
 				}
 			}
 			// compiled code
-			$this->html = preg_replace('/{\S+}/', '', $this->parse_row_vars($html)); 
+			//$this->html = preg_replace('/{\S+}/', '', $this->parse_row_vars($html)); 
 			// uncompiled code
-			//$this->html = $this->parse_row_vars($html);
+			$this->html = $this->parse_row_vars($html);
 		} else {
 			$this->error = 'cant find template:'. getcwd() . $file;
 		}
@@ -117,24 +117,26 @@ class template
 		if(!empty($this->exe_block)) {
 			foreach($this->exe_block as $row => $useless)
 			{
-				$replace_row = '{'.$row.'}';
+				$replace_row = '{'.$row.'}'."\n";
 				if(preg_match($patt2,$file)) {
 					preg_match_all($patt2, $file, $matches);
 					$check = false;
 					$pat_start = "/<!-- START $row -->/";
 					$pat_end = "/<!-- END $row -->/";		
+					$i = 0;
+					$fileArray = $matches[0];
 					foreach($matches[0] as $key)
-					{					
+					{	
 						if(preg_match($pat_start,$key)) {
-							$file = preg_replace("~$key~",'',$file);
+							$fileArray[$i] = '';
 							$check = true;
 						} elseif(preg_match($pat_end,$key)) {
-							$file = preg_replace("~$key~",$replace_row,$file);
+							$fileArray[$i] = $replace_row;
 							$check = false;
 						} elseif($check) {
 							if(!empty($key)) {
-								$preg = '('. $key.')';
-								$file = preg_replace($preg,'',$file);
+								unset($fileArray[$i]);	
+								$preg = '('.$key.')';								
 								if(!empty($this->rows[$row])) {	
 									$this->rows[$row] .= $key;
 								}else {
@@ -142,6 +144,13 @@ class template
 								}
 							}
 						}
+						$i++;
+					}
+					$file ='';
+					foreach($fileArray as $key)
+					{
+						if(!empty($key))
+							$file .= $key."\n";
 					}
 					if(!empty($this->rows)) {
 						foreach($this->rows as $row => $rows)
@@ -174,23 +183,32 @@ class template
 	{
 		$check = false;
 		$patt2 = "/.*/";
+		$i = 0;
 		$pat_start = "/<!-- START ([A-Z]+) -->/";
 		$pat_end = "/<!-- END ([A-Z]+) -->/";
+		
 		preg_match_all($patt2, $file, $matches);
+		$fileArray = $matches[0];
 		foreach($matches[0] as $key)
 		{
 			if(preg_match($pat_start,$key)) {
-				$file = preg_replace("/$key/",'',$file);
+				$fileArray[$i] = '';
 				$check = true;
 			} elseif(preg_match($pat_end,$key)) {
-				$file = preg_replace("/$key/",'',$file);
+				$fileArray[$i] = '';
 				$check = false;
 			} elseif($check) {
 				if(!empty($key)) {
-					$preg = '('. $key.')';
-					$file = preg_replace($preg,'',$file);
+					$fileArray[$i] = '';
 				}
 			}
+			$i++;
+		}
+		$file = '';
+		foreach($fileArray as $key)
+		{
+			if(!empty($key))
+				$file .= $key."\n";
 		}
 		return $file;
 	}
