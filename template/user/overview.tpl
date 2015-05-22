@@ -1,7 +1,7 @@
 <script type="text/javascript">
-	function confirmDelete(id)
+	function confirmDelete(id,user)
 	{
-		if(confirm("Are you sure you want to delete this user?")) {
+		if(confirm("Weet je zeker dat je de gebruiker "+ user +" wil verwijderen?")) {
 			window.location.href = "{DIR}user/5/"+ id ;
 		} else {
 			
@@ -28,7 +28,7 @@
 		</td>
 		<td>
 			<a href='{DIR}user/3/{USERS.ID}'>Edit</a>
-			<a onclick='{CONFIRM}'>Delete</a>
+			<a onclick='{USERS.CONFIRM}'>Delete</a>
 		</td>
 	</tr>
 	<!-- END USERS -->

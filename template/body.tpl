@@ -9,6 +9,10 @@
 	</head>
 	<body>
 		<div class='container'>
+			<a href="/pao/user/">Users</a>
+			<a href="/pao/company/">Bedrijven</a>
+		</div>
+		<div class='container'>
 			{CONTENT}
 		</div>
 	</body>

@@ -1,6 +1,18 @@
 <?php
 	class user extends baseController
 	{
+		/*
+		 * users
+		 * -----
+		 * userId
+		 * voornaam
+		 * tussenvoegsel
+		 * achternaam
+		 * wachtwoord
+		 * email
+		 * groep
+		 * salt
+		 */
 		public $group = array( 1 => 'Admin', 2 => 'Begeleider');
 		
 		public function __construct($route)
@@ -43,12 +55,12 @@
 			
 			foreach($usersResult as $userKey)
 			{
-				
+				$naam = substr($userKey['voornaam'], 0, 1).'. '.$userKey['tussenvoegsel'].' '.$userKey['achternaam'];
 				$this->template->prepare_row_var('USERS', array( 
-					'NAAM' => substr($userKey['voornaam'], 0, 1).'. '.$userKey['tussenvoegsel'].' '.$userKey['achternaam'],
+					'NAAM' => $naam,
 					'GROUP' => $this->group[$userKey['groep']] ,
 					'ID' => $userKey['userId'],
-					'CONFIRM' => 'confirmDelete("{USERS.ID}";'
+					'CONFIRM' => 'confirmDelete("'. $userKey['userId'].'","'. $naam .'");'
 					));
 			}
 			
