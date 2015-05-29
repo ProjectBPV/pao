@@ -11,6 +11,8 @@
 		<div class='container'>
 			<a href="/pao/user/">Users</a>
 			<a href="/pao/company/">Bedrijven</a>
+			<a href="/pao/student/">Studenten</a>
+			<a href="/pao/klas/">Klassen</a>
 		</div>
 		<div class='container'>
 			{CONTENT}

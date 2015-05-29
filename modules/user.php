@@ -24,6 +24,9 @@
 			}
 			switch($this->action)
 			{
+				case 6:
+					$content = $this->viewUser();
+					break;
 				case 5:
 					$this->deleteUser();
 					break;
@@ -65,7 +68,7 @@
 			}
 			
 			$this->template->prepare_sub('overview', array(
-				"TITEL" => 'User',
+				"TITEL" => 'Users',
 				"DIR" => $this->baseDir
 				));
 			return $this->template->pparse_noecho('overview', 'user');
@@ -109,8 +112,7 @@
 						$redir = $this->baseDir.'user/';
 						header("Location: $redir");
 					}
-				}
-			 	
+				}	
 			}
 		}
 		
@@ -189,6 +191,36 @@
 			}
 			$redir = $this->baseDir .'user/';
 			header("Location: $redir");
+		}
+		
+		public function viewUser()
+		{
+			$userSql ="SELECT * FROM `users` WHERE userId = $this->id";
+			
+			$userResult = $this->db->fetch($userSql);
+			
+			foreach($this->group as $key => $val) 
+			{
+				$selected = '';
+				if($key == $userResult['groep']) {
+					$selected = "SELECTED";
+				}
+				$this->template->prepare_row_var('GROUPS', array( 
+					'VAL' => $key,
+					'NAME' => $val,
+					'SELECTED' => $selected
+					));
+			}
+			$this->template->prepare_sub('view', array(
+				"CASE" => 3,
+				"DIR" => $this->baseDir,
+			 	"ID" => $userResult['userId'],
+			 	"TS" => $userResult['tussenvoegsel'],
+				"VOORNAAM" => $userResult['voornaam'],
+				"ACHTERNAAM" => $userResult['achternaam'],
+				"EMAIL" => $userResult['email']
+			));
+			return $this->template->pparse_noecho('view','user');
 		}
 	}
 

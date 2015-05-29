@@ -23,6 +23,7 @@
 			{COMPANYS.NAAM}
 		</td>
 		<td>
+			<a href='{DIR}company/6/{COMPANYS.ID}'>View</a>
 			<a href='{DIR}company/3/{COMPANYS.ID}'>Edit</a>
 			<a onclick='{COMPANYS.CONFIRM}'>Delete</a>
 		</td>

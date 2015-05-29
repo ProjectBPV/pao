@@ -27,6 +27,7 @@
 			{USERS.GROUP}
 		</td>
 		<td>
+			<a href='{DIR}user/6/{USERS.ID}'>View</a>
 			<a href='{DIR}user/3/{USERS.ID}'>Edit</a>
 			<a onclick='{USERS.CONFIRM}'>Delete</a>
 		</td>

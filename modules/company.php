@@ -48,8 +48,11 @@
 			}
 			switch($this->action)
 			{
+				case 6:
+					$content = $this->viewCompany();
+					break;
 				case 5:
-					$this->deleteUser();
+					$this->deleteCompany();
 					break;
 				case 4:
 					$this->saveEditCompany();
@@ -179,7 +182,7 @@
 			header("Location: $this->baseDir".'company/');
 		}
 		
-		public function deleteUser()
+		public function deleteCompany()
 		{
 			if(!empty($this->id)) {
 				$companySql = "DELETE FROM `bedrijven` WHERE bedrijfid = $this->id";
@@ -187,6 +190,29 @@
 			}
 			$redir = $this->baseDir .'company/';
 			header("Location: $redir");
+		}
+		
+		public function viewCompany()
+		{
+			$companySql = "SELECT * FROM `bedrijven` WHERE bedrijfid = $this->id";
+			$companyResult = $this->db->fetch($companySql);
+			
+			$this->template->prepare_sub('view', array(
+				"DIR" => $this->baseDir,
+				"CASE" => 3,
+				"ID" => $this->id,
+				"BEDRIJFSNAAM" => $companyResult['bedrijfnaam'],
+				"ADRES" => $companyResult['adres'],
+				"POSTCODE" => $companyResult['postcode'],
+				"PLAATS" => $companyResult['plaats'],
+				"TELEFOONNUMMER" => $companyResult['telefoonnummer'],
+				"EMAIL" => $companyResult['email'],
+				"WEBSITE" => $companyResult['website'],
+				"CODE" => $companyResult['codeleerbedrijf'],
+				"OPMERKING" => $companyResult['opmerking']
+				));
+				
+			return $this->template->pparse_noecho('view','company');
 		}
 	}
 
