@@ -1,7 +1,7 @@
 <script type="text/javascript">
-	function confirmDelete(id)
+	function confirmDelete(id, company)
 	{
-		if(confirm("Are you sure you want to delete this company?")) {
+		if(confirm("Weet je zeker dat je het bedrijf: "+ company + " wil verwijderen??")) {	 
 			window.location.href = "{DIR}company/5/"+ id ;
 		} else {
 			

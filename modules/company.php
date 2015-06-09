@@ -87,7 +87,7 @@
 				$this->template->prepare_row_var('COMPANYS', array( 
 					'NAAM' => $companyKey['bedrijfnaam'],
 					'ID' => $companyKey['bedrijfid'],
-					'CONFIRM' => 'confirmDelete("'. $companyKey['bedrijfid'].'");'
+					'CONFIRM' => 'confirmDelete("'. $companyKey['bedrijfid'].'","'.$companyKey['bedrijfnaam'].'");'
 					));
 			}
 			
