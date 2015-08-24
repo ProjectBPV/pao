@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="description" content="{META_DESC}" >
+		<meta name="keywords" content="" >
+		<meta name="robots" content="NOINDEX, NOFOLLOW" >
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+		<meta http-equiv="Content-Language" content="en-US" >
+		<title><?php echo $this->title; ?></title>
+		<script src="/php_mvc/assets/lib/jquery/jquery-1.11.2.min.js"></script>
+		<script src="/php_mvc/assets/lib/bxslider/jquery.bxslider.min.js"></script>
+		<link rel='stylesheet' type="text/css" href='/php_mvc/assets/style/style.css?133' />
+	</head>
+	<body>
+		<div id='container'>
+			<div id='header'>
+				<img class='main gray' src='/php_mvc/assets/images/dragonc.png'>
+				<img class='main colour' alt="" src='/php_mvc/assets/images/dragong.png'>
+			</div>
+			<div id='menu'>
+				<ul class='menu'>
+					<li><a href='/php_mvc/'>Home</a></li>
+					<li><a href='/php_mvc/gallery/view'>Gallery</a></li>
+					<li><a href='/php_mvc/vakantie/view'>Vakantie</a></li>
+				</ul>
+			</div>
+			<div id='content_col'>
+				 <?php echo $this->content; ?>
+			</div>
+		</div>
+	</body>
+</html>

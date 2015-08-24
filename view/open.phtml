@@ -1,0 +1,24 @@
+<div id='content'>
+	<?php 
+		echo "<h1>". $this->obj->vakantie['content'][0]['title']."</h1>";
+		foreach($this->obj->vakantie['content'][0] as $key)
+		{
+			if(is_array($key))
+			{
+				foreach($key as $val)
+				{
+					echo "<table border='1'><tr><td>".$val['type']."</td><td>"; 
+					if(!$val['compulsorydates']){ echo $val['startdate'];} 
+					echo "</td><td>";
+					if(!$val['compulsorydates']){ echo $val['enddate'];}
+					echo "</td></tr>";
+	
+					foreach($val['regions'] as $regions) {
+						echo "<tr><td>". $regions['region']." </td><td>". substr($regions['startdate'], 0, 10). " </td><td>". substr($regions['enddate'],0, 10). "</td></tr>";
+					}
+					echo "</table><br>";
+				}
+			}
+		}
+	?>
+</div>
