@@ -3,10 +3,13 @@
 	{
 		public $controller = 'content';
 		public $method = 'view';
+		public $baseDir = '';
 		
 		public function __construct($route)
 		{
 			parent::__construct($route);
+			$this->baseDir = preg_replace('^/admin/^', '',preg_replace('/index.php/', '', $_SERVER['SCRIPT_NAME']));
+			
 			
 			// Set controller and method
 			if(!empty($this->get['controller'])) { 
