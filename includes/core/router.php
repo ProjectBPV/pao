@@ -41,11 +41,15 @@
 				ob_start();
 				$file = file_get_contents($path);
 				eval("?>$file");
-				$this->content = ob_get_clean();
-			
-				if(!empty($this->content)) {
+				$content = ob_get_clean();
+
+				if(!empty($content)) {
 					ob_start();
-					$layout = file_get_contents('layout/layout.phtml');
+					if(empty($controller->layout)){
+						$layout = file_get_contents('layout/layout.phtml');
+					} else {
+						$layout = file_get_contents('layout/'.$controller->layout);
+					}
 					eval("?>$layout");
 					$layout = ob_get_clean();
 					print $layout;

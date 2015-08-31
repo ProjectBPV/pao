@@ -4,8 +4,8 @@ namespace M;
 	{
 		public function content()
 		{
-			return "<img src='/mvc/assets/images/content/vladrape.png'>
-					<img src='/mvc/assets/images/content/voetbal.jpg'>
-					<img src='/mvc/assets/images/content/basketbal.jpg'>";
+			return "<img src='/pao/assets/images/content/vladrape.png'>
+					<img src='/pao/assets/images/content/voetbal.jpg'>
+					<img src='/pao/assets/images/content/basketbal.jpg'>";
 		}
 	}
