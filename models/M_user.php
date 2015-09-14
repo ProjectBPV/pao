@@ -10,4 +10,8 @@ class user
         $json = json_encode($users);
         return $json;
     }
+	public function insert($db, $post)
+	{
+		print_r($_POST);
+	}
 }

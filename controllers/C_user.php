@@ -12,9 +12,18 @@ class user extends \baseController
 
 	public function view()
 	{
-        $this->db;
 		$this->view = "user.phtml";
 		$this->model = $this->GetModel("user");
 		$this->content = $this->model->content($this->db);
+		
 	}
+	
+	public function insert()
+	{
+		$this->model = $this->GetModel("user");
+		$this->model->insert($this->db, $this->post);		
+		$this->content = '';
+		exit;
+	}
+
 }
