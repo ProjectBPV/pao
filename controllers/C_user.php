@@ -17,6 +17,12 @@ class user extends \baseController
 		$this->content = $this->model->content($this->db);
 		
 	}
+
+	public function add()
+	{
+		$this->view = "insert.phtml";
+		$this->content = "";
+	}
 	
 	public function insert()
 	{
@@ -25,5 +31,4 @@ class user extends \baseController
 		$this->content = '';
 		exit;
 	}
-
 }
