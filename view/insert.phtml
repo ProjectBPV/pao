@@ -1,0 +1,47 @@
+<div class="content">
+    <form>
+        <div class="form-group">
+            <label for="email">E-mailadres</label>
+            <input type="email" class="form-control" id="email" placeholder="E-mailadres">
+        </div>
+        <div class="form-group">
+            <label for="firstname">Voornaam</label>
+            <input type="text" class="form-control" id="firstname" placeholder="Voornaam">
+        </div>
+        <div class="form-group">
+            <label for="lastname">Achternaam</label>
+            <input type="text" class="form-control" id="lastname" placeholder="Achternaam">
+        </div>
+        <div class="form-group">
+            <label for="password">Wachtwoord</label>
+            <input type="password" class="form-control" id="password" placeholder="Wachtwoord">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function() {
+
+        $('form').submit(function (event) {
+            var formData = {
+                'email': $('#email').val(),
+                'firstname': $('#firstname').val(),
+                'lastname': $('#lastname').val(),
+                'password': $('#password').val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/pao/user/insert",
+                data: formData
+            }).done(function (data) {
+                console.log(data);
+            }).fail(function(data) {
+                console.log("Error");
+            });
+
+            event.preventDefault();
+        });
+    });
+</script>
