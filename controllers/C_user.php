@@ -14,8 +14,8 @@ class user extends \baseController
 	{
 		$this->view = "user.phtml";
 		$this->model = $this->GetModel("user");
-		$this->content = $this->model->content($this->db);
-		
+		//$this->content = $this->model->content($this->db);
+		$this->content = '';
 	}
 	
 	public function insert()
