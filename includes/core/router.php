@@ -42,7 +42,7 @@
 				$file = file_get_contents($path);
 				eval("?>$file");
 				$content = ob_get_clean();
-
+				$this->contentx = $content;
 				if(!empty($content)) {
 					ob_start();
 					if(empty($controller->layout)){
