@@ -33,10 +33,11 @@
 
             $.ajax({
                 type: "POST",
-                url: "/pao2/user/insert",
+                url: "/pao/user/insert",
                 data: formData
             }).done(function (data) {
                 console.log(data);
+                console.log("Add Succes -> check user index");
             }).fail(function(data) {
                 console.log("Error");
             });
