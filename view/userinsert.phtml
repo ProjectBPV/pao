@@ -1,0 +1,44 @@
+<div class="content">
+    <?php //print_r($this->content); ?>
+
+    <table id="usertable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Voornaam</th>
+                <th>Achternaam</th>
+                <th>Wachtwoord</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<script>
+    var json = <?=$this->content;?>;
+    //console.log(json);
+
+    var tbody = $("#usertable tbody");
+    var tr = "";
+
+    // elk object in de json
+    $.each( json, function( key, val ) {
+        //console.log(val);
+
+        tr += "<tr>";
+
+        // elke value van de bijbehorende key in het object
+        $.each(val, function( key2, val2 ) {
+            //console.log(key2 + ":" + val2);
+            console.log(val2);
+
+            tr += "<td>"+val2+"</td>";
+
+        });
+
+        tr += "</tr>";
+        tbody.append(tr);
+        tr = "";
+    });
+</script>

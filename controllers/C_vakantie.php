@@ -10,10 +10,23 @@ namespace C;
 		
 		public function view()
 		{
-			$this->url = "http://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotypes/schoolholidays/schoolyear/2015-2016?output=json";
-			$this->vakantie = json_decode(file_get_contents($this->url),true);
 			$this->view = "open.phtml";
-			$this->model = $this->GetModel("gallery"); 
-			$this->content = $this->model->content();
+			$this->content ='';
+			
+			$this->url = "http://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotypes/schoolholidays/schoolyear/2015-2016?output=json";
+			$this->model = $this->GetModel("json"); 
+			$this->vakantie = $this->model->GetJson($this->url);
+		}
+		
+		public function rest()
+		{
+			$this->content = '';
+			$this->view ='empty.phtml';
+			$this->layout = 'empty.phtml';
+			
+			$this->url = "http://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotypes/schoolholidays/schoolyear/2015-2016?output=json";	
+			$this->model = $this->GetModel("json"); 
+			$this->json = $this->model->getJson($this->url);
+			
 		}
 	}

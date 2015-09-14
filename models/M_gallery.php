@@ -1,11 +1,13 @@
 <?php
+
 namespace M;
-	class gallery
+
+class gallery
+{
+	public function content()
 	{
-		public function content()
-		{
-			return "<img src='/mvc/assets/images/content/vladrape.png'>
-					<img src='/mvc/assets/images/content/voetbal.jpg'>
-					<img src='/mvc/assets/images/content/basketbal.jpg'>";
-		}
+		return "<img src='/pao/assets/images/content/vladrape.png'>
+				<img src='/pao/assets/images/content/voetbal.jpg'>
+				<img src='/pao/assets/images/content/basketbal.jpg'>";
 	}
+}
