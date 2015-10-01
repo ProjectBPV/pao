@@ -9,6 +9,7 @@
                 <th>Voornaam</th>
                 <th>Achternaam</th>
                 <th>Wachtwoord</th>
+                <th>Acties</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -17,8 +18,6 @@
 
 <script>
     var json = <?=$this->content;?>;
-    //console.log(json);
-
     var tbody = $("#usertable tbody");
     var tr = "";
 
@@ -30,13 +29,10 @@
 
         // elke value van de bijbehorende key in het object
         $.each(val, function( key2, val2 ) {
-            //console.log(key2 + ":" + val2);
-            console.log(val2);
-
             tr += "<td>"+val2+"</td>";
         });
 
-        tr += "</tr>";
+        tr += "<td><a href='/user/edit/" + val.id + "'>EDIT</a></td></tr>";
         tbody.append(tr);
         tr = "";
     });
