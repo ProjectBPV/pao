@@ -26,4 +26,11 @@ class user
 
         return $json;
     }
+	
+	public function edit($db, $id, $post)
+	{
+		print_r($post);
+		$sql ="UPDATE users SET email = '". $post['email']."', first_name = '".$post['firstname']."', last_name = '".$post['lastname']."', password = '".$post['password']."' where id = " .$id;
+		$result = $db->insert_update($sql);
+	}
 }

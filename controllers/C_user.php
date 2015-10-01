@@ -29,6 +29,15 @@ class user extends \baseController
 		$this->view = "edit.phtml";
 		$this->content = $this->model->getOne($this->db, $this->get['id']);
 	}
+	public function saveEdit()
+	{
+		$this->baseDir = preg_replace('^/admin/^', '',preg_replace('/index.php/', '', $_SERVER['SCRIPT_NAME']));
+		$this->model = $this->GetModel("user");
+		$this->view = "edit.phtml";
+		$this->content = $this->model->edit($this->db, $this->get['id'], $this->post);
+		$path = "$this->baseDir"."user/view";
+		header("location: $path");
+	}
 	
 	public function insert()
 	{
