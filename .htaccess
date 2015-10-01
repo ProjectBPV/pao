@@ -1,3 +1,4 @@
 RewriteEngine On
-RewriteBase /pao/
+RewriteBase /pao2/
 RewriteRule ^([a-zA-Z]+)/{1}([a-zA-Z]+)$ index.php?controller=$1&method=$2 [L]
+RewriteRule ^([a-zA-Z]+)/{1}([a-zA-Z]+)/{1}([0-9])$ index.php?controller=$1&method=$2&id=$3 [L]

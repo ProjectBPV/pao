@@ -22,7 +22,8 @@
 
 <script>
     $(document).ready(function() {
-
+		var json = <?php  echo $this->content ?> ;
+		console.log(json)
         $('form').submit(function (event) {
             var formData = {
                 'email': $('#email').val(),

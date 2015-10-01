@@ -23,6 +23,13 @@ class user extends \baseController
 		$this->content = "";
 	}
 	
+	public function edit()
+	{
+		$this->model = $this->GetModel("user");
+		$this->view = "edit.phtml";
+		$this->content = $this->model->getOne($this->db, $this->get['id']);
+	}
+	
 	public function insert()
 	{
 		$this->model = $this->GetModel("user");
