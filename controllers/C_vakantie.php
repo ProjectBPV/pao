@@ -14,7 +14,7 @@ namespace C;
 			$this->content ='';
 			
 			$this->url = "http://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotypes/schoolholidays/schoolyear/2015-2016?output=json";
-			$this->model = $this->GetModel("json"); 
+			$this->model = new \M\json(); 
 			$this->vakantie = $this->model->GetNoJson($this->url);
 		}
 		

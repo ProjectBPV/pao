@@ -1,27 +1,43 @@
 <?php
 	class database
 	{
-		private $db;
+		private $pdo;
+		private $mysqli;
 		private $result;
 		
 	    public function __construct($host,$database,$user,$password)
 		{
 			
-			$this->db = new PDO("mysql:host=$host;dbname=$database","$user","$password");
-			$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$this->pdo = new PDO("mysql:host=$host;dbname=$database","$user","$password");
+			$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			
+			$this->mysqli = new mysqli($host, $user, $password);
+			mysqli_select_db($this->mysqli,$database);
 		}
 		
-		public function fetchall($sql)
+		public function fetchall($sql, $type = "pdo")
 		{
-				$results = $this->db->prepare($sql);
+			if($type == "pdo")
+			{
+				$results = $this->pdo->prepare($sql);
 				$results->execute();
 				$result = $results->fetchAll(PDO::FETCH_ASSOC);
 				return $result;
+			} else {
+				$result = mysqli_query($this->mysqli, $sql);
+				if(mysql_num_rows($result) > 0) {
+					return mysqli_fetch_assoc($result);
+				} else {
+					return false;
+				}	
+			}
 		}
 		
-		public function fetch($sql)
+		public function fetch($sql, $type = "pdo")
 		{
-				$results = $this->db->prepare($sql);
+			if($type == "pdo")
+			{
+				$results = $this->pdo->prepare($sql);
 				$results->execute();
 				$result = $results->fetch(PDO::FETCH_ASSOC);
 				if($results->rowCount() == 1) {
@@ -30,26 +46,42 @@
 				} else {
 					return false;	
 				}
+			} else {
+				$result = mysqli_query($this->mysqli, $sql);
+				if(mysql_num_rows($result) == 1) {
+					return mysql_fetch_row($result);
+				} else {
+					return false;
+				}			
+			}
 		}
 		
-		public function insert_update($sql)
+		public function insert_update($sql, $type = "pdo")
 		{
-			$result = $this->db->prepare($sql);
-			return $result->execute();
+			if($type == "pdo") {
+				$result = $this->pdo->prepare($sql);
+				return $result->execute();
+			} else {
+				return $this->mysqli->query($sql);
+			}
 		}
+		
+		// PDO only
 		public function sqlPrepare($sql)
 		{
-			$this->result = $this->db->prepare($sql);
+			$this->result = $this->pdo->prepare($sql);
 		}
+		
 		public function bindParameter($param, $value, $type)
 		{
 			$this->result->bindValue($param, $value, $type);
 		}
+		
 		public function executeNonQuery()
 		{
 			$this->result->execute();
-			print 'Derp '.$this->db->lastInsertId();
 		}
+		
 		public function executeQuery($func)
 		{
 			$this->result->execute();

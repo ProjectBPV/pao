@@ -24,9 +24,13 @@
 			}
 			
 			// load controller
+			try {
 			$controller = new $load($route);
 			$controller->$method();
-			
+			} catch(exception $e){
+				echo $e->getMessage();
+				exit;
+			}
 			
 			// fetch and parse view
 			$view =  $controller->view;
