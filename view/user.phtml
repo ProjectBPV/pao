@@ -32,7 +32,7 @@
             tr += "<td>"+val2+"</td>";
         });
 
-        tr += "<td><a href='/user/edit/" + val.id + "'>EDIT</a></td></tr>";
+        tr += "<td><a href='<?php echo $this->baseDir; ?>user/edit/" + val.id + "'>EDIT</a></td></tr>";
         tbody.append(tr);
         tr = "";
     });
