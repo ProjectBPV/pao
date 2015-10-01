@@ -1,4 +1,5 @@
 <?php
+
 class baseController
 {
 	public $db;
@@ -17,5 +18,3 @@ class baseController
 		return new $model();
 	}
 }
-
-?>
