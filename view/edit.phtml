@@ -1,5 +1,5 @@
 <div class="content">
-    <form method="post" action="<?php echo $this->baseDir; ?>user/saveEdit/<?php echo $this->get['id']; ?>">
+    <form method="post" id="editForm" action="<?php echo $this->baseDir; ?>user/saveEdit/<?php echo $this->get['id']; ?>">
         <div class="form-group">
             <label for="email">E-mailadres</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="E-mailadres">
@@ -22,7 +22,7 @@
 
 <script>
     $(document).ready(function() {
-		var json = <?php  echo $this->content ?> ;
+		var json = <?php echo $this->content; ?> ;
 		console.log(json);
 
         $("#email").val(json.email);
@@ -30,4 +30,43 @@
         $("#lastname").val(json.last_name);
         $("#password").val(json.password);
     });
+
+    // API-04/nieuwe API-03
+    var patt_email = new RegExp("/^([A-z0-9._-]+@{1}[A-z0-9]+.{1}[A-z]+)$/");
+    var patt_pass = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+
+    $("input").on("blur", function() {
+        var input = this.value;
+        var type = this.type;
+
+        if (!input) {
+            console.log("dit veld mag niet leeg zijn");
+        } else {
+            if (type == "email") {
+                if (input.search(patt_email)) {
+                    console.log("email ok");
+                } else {
+                    console.log("Voer een geldig e-mailadres in!");
+                    this.className += " error";
+                }
+            }
+
+            if (type == "password") {
+                if (input.search(patt_pass)) {
+                    console.log("password ok");
+                    console.log(input);
+
+                } else {
+                    console.log("Uw wachtwoord moet minstens 8 karakters lang zijn, waarvan tenmiste 1 cijfer, 1 kleine letter, 1 grote letter en 1 speciaal teken)");
+                    this.className += " error";
+                }
+            }
+        }
+    });
+
+    $("form").submit(function() {
+
+    });
+
+
 </script>
