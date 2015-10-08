@@ -12,7 +12,7 @@ class user
     }
 
 	public function insert($db, $post)
-	{
+	{		
 		$sql = "INSERT INTO users(`email`, `first_name`, `last_name`, `password`) VALUES('".$post['email']."', '".$post['firstname'] ."', '".$post['lastname'] ."', '".$post['password'] ."')";
 		$db->insert_update($sql);
 		print_r($_POST);

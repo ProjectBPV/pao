@@ -23,20 +23,32 @@ class user extends \baseController
 		$this->content = "";
 	}
 	
-	public function edit()
+	public function edit($post ='')
 	{
 		$this->model = $this->GetModel("user");
 		$this->view = "edit.phtml";
-		$this->content = $this->model->getOne($this->db, $this->get['id']);
+		if(!empty($post)){
+			$this->content = json_encode($this->post);
+		} else {
+			$this->content = $this->model->getOne($this->db, $this->get['id']);
+		}
 	}
 	public function saveEdit()
 	{
-		$this->baseDir = preg_replace('^/admin/^', '',preg_replace('/index.php/', '', $_SERVER['SCRIPT_NAME']));
-		$this->model = $this->GetModel("user");
-		$this->view = "edit.phtml";
-		$this->content = $this->model->edit($this->db, $this->get['id'], $this->post);
-		$path = "$this->baseDir"."user/view";
-		header("location: $path");
+		$type = array('email' => 'email', 'firstname' => 'string', 'lastname' => 'string', 'password' => 'password');
+		$validate = new \Validation();
+		
+		if(!$validate->validateForm($this->post, $type)){
+			$this->edit($this->post);
+		} else {
+			$this->baseDir = preg_replace('^/admin/^', '',preg_replace('/index.php/', '', $_SERVER['SCRIPT_NAME']));
+			$this->model = $this->GetModel("user");
+						
+			$this->view = "edit.phtml";
+			$this->content = $this->model->edit($this->db, $this->get['id'], $this->post);
+			$path = "$this->baseDir"."user/view";
+			header("location: $path");
+		}
 	}
 	
 	public function insert()
