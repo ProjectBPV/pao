@@ -16,7 +16,7 @@ class Validation
 	public function validateProperty($property, $type)
 	{
 		if($type == 'string') {
-			$pattern = '/[a\-Z]+/';
+			$pattern = "/[a-zA-Z]+/";
 		} else if($type == 'email') {
 			$pattern = '/[a-zA-Z0-9]+@{1}[a-z]+.{1}[a-zA-Z]{1,10}/';
 		} else if($type == 'password'){
@@ -24,7 +24,7 @@ class Validation
 		}
 		
 		echo $pattern.' '. $property .' ';
-		if(preg_match($pattern, $property)){
+		if(preg_match(trim($pattern), $property)){
 			//echo 'matched<br>';
 			return true;
 		} else {
