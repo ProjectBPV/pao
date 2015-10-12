@@ -2,7 +2,7 @@
     <form method="post" id="editForm" action="<?php echo $this->baseDir; ?>user/saveEdit/<?php echo $this->get['id']; ?>">
         <div class="form-group">
             <label for="email">E-mailadres</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="E-mailadres">
+            <input type="email" class="form-control" id="email" name="email" placeholder="E-mailadres" oninput="validateEmail(this)">
         </div>
         <div class="form-group">
             <label for="firstname">Voornaam</label>
@@ -32,10 +32,30 @@
     });
 
     // API-04/nieuwe API-03
-    var patt_email = new RegExp("/^([A-z0-9._-]+@{1}[A-z0-9]+.{1}[A-z]+)$/");
-    var patt_pass = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    function validateField(pattern,string) {
+        return (pattern.test(string));
+    }
 
-    $("input").on("blur", function() {
+    function validateEmail(input) {
+        //console.log(input.id);
+        //console.log(validateField(/^([A-z0-9._-]+@{1}[A-z0-9]+.{1}[A-z]{2,})$/, input.value));
+
+        if (validateField(/^([A-z0-9._-]+@{1}[A-z0-9]+.{1}[A-z]{2,})$/, input.value) == false) {
+            $('#helpEmail').remove();
+            $('#email').parent().addClass('has-error');
+
+            var help = '<span id="helpEmail" class="help-block">Voer alstublieft een geldig e-mailadres is.</span>';
+            $('#email').parent().append(help);
+        } else {
+            $('#email').parent().removeClass('has-error');
+            $('#helpEmail').remove();
+        }
+    }
+
+    //var patt_email = new RegExp("/^([A-z0-9._-]+@{1}[A-z0-9]+.{1}[A-z]+)$/");
+    //var patt_pass = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+
+   /* $("input").on("blur", function() {
         var input = this.value;
         var type = this.type;
 
@@ -43,6 +63,7 @@
             console.log("dit veld mag niet leeg zijn");
         } else {
             if (type == "email") {
+
                 if (input.search(patt_email)) {
                     console.log("email ok");
                 } else {
@@ -62,11 +83,9 @@
                 }
             }
         }
-    });
+    }); */
 
     $("form").submit(function() {
 
     });
-
-
 </script>
