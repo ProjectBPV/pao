@@ -1,5 +1,5 @@
 <div class="content">
-    <form method="post" id="editForm" action="<?php echo $this->baseDir; ?>user/saveEdit/<?php echo $this->get['id']; ?>">
+    <form method="post" id="editForm" action="<?php echo $this->baseDir; ?>user/edit/<?php echo $this->get['id']; ?>">
         <div class="form-group">
             <label for="email">E-mailadres</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="E-mailadres" oninput="validateEmail(this)">

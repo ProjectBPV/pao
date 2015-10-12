@@ -23,7 +23,7 @@ class Validation
 			return true;
 		}
 		
-		//echo $pattern.' '. $property .' ';
+		echo $pattern.' '. $property .' ';
 		if(preg_match($pattern, $property)){
 			//echo 'matched<br>';
 			return true;
