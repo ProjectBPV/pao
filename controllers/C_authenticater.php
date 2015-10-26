@@ -14,32 +14,41 @@ class authenticater extends \baseController
 	{
 		$this->view = "login.phtml";
 		$this->model = $this->GetModel("content");
-		$this->content = $this->model->content();
+		$this->content = '';
 		
 		if(!empty($_POST)) {
+			// Auth location	
 			$url = "http://localhost/pao/controllers/auth.php";
-			$ch = curl_init();
+			// values
 			$username = $_POST['username'];
 			$password = $_POST['password'];
+			//start curl
+			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $url);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
 			curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+			
+			// exec curl
 			$output = curl_exec($ch);
-			$info = curl_getinfo($ch);
 			curl_close($ch);
-			echo "<pre>";
+			
 			if($output == "Login!"){
+				// set session
 				$_SESSION['username'] = $_POST['username'];
 				$_SESSION['token'] = $_POST['password'];
-				echo "Works	";	
+				header('Location: ../');	
+			} else {
+				$this->content = 'Inloggegevens fout';
 			}
-			echo '<br>';
-			//print_r($info);
-			echo "</pre>";
-			exit;
-		} else {
-			
-		}	
+		}
+	}
+	public function logout()
+	{	session_unset();
+    	session_destroy();
+		if(empty($_SESSION))
+		{
+			header('Location: ../');	
+		}
 	}
 }

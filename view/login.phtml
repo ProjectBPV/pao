@@ -1,5 +1,22 @@
 <form method="post" action="<?php echo $this->baseDir; ?>authenticater/login">
-	<input name='username' type="text">
-	<input name='password' type="password">
-	<input type='submit' value="Login">
+	<p style='color:red;'>
+	<?php
+		if(!empty($this->content)){
+			echo $this->content;
+		}
+	?>
+	</p>
+	<table style='border:none;'>
+		<tr>
+			<td>Username</td>
+			<td><input name='username' type="text"></td>
+		</tr>
+		<tr>
+			<td>Password</td>
+			<td><input name='password' type="password"></td>
+		</tr>
+		<tr>
+			<td></td><td><input type='submit' value="Login"></td>
+		</tr>
+	</table>
 </form>

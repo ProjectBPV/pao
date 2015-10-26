@@ -24,7 +24,18 @@
 					<li><a href='<?php echo $this->baseDir; ?>gallery/view'>Gallery</a></li>
 					<li><a href='<?php echo $this->baseDir; ?>vakantie/view'>Vakantie</a></li>
 					<li><a href='<?php echo $this->baseDir; ?>user/view'>Users</a></li>
-					<li><a href='<?php echo $this->baseDir; ?>user/add'>Add User</a></li>\
+					<li><a href='<?php echo $this->baseDir; ?>user/add'>Add User</a></li>
+					<li>
+					<?php
+						if(!empty($_SESSION)){
+							//print_r($_SESSION);
+							echo '<a href="'.$this->baseDir.'authenticater/logout"> Logout</a>';
+						} else {
+						//	echo "<p>Welkom ". $_SESSION['username'].'</p>';
+							echo '<a href="'.$this->baseDir.'authenticater/login">Login</a>';
+						}
+					?>
+					</li>
 				</ul>
 			</div>
 			<div id='content_col'>
