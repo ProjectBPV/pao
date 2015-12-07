@@ -19,8 +19,12 @@ class user extends \baseController
 
 	public function add()
 	{
-		$this->view = "insert.phtml";
-		$this->content = "";
+		if(!$_SESSION){
+			$this->view = "insert.phtml";
+			$this->content = "";
+		} else {
+			$this->view();
+		}
 	}
 	
 	public function edit($post ='')

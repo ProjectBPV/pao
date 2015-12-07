@@ -8,7 +8,8 @@ class gallery extends \baseController
 	{
 		parent::__construct($route);
 		$this->title = 'Mvc gallery';
-	}
+		$this->requiredScripts[] = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js";
+	}	
 
 	public function view()
 	{

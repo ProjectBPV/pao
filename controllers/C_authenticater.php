@@ -18,11 +18,12 @@ class authenticater extends \baseController
 		
 		if(!empty($_POST)) {
 			// Auth location	
-			$url = "http://localhost/pao/controllers/auth.php";
+			$url = "http://localhost/pao2/controllers/auth.php";
 			// values
 			$username = $_POST['username'];
 			$password = $_POST['password'];
 			//start curl
+			
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $url);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -31,8 +32,10 @@ class authenticater extends \baseController
 			
 			// exec curl
 			$output = curl_exec($ch);
-			curl_close($ch);
-			
+			/*curl_close($ch);
+			echo "<pre>";
+			print_r($output);
+			exit;*/ 
 			if($output == "Login!"){
 				// set session
 				$_SESSION['username'] = $_POST['username'];
